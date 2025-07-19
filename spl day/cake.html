@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎂 Happy 20th Birthday Arun</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: url('https://wallpapers.com/images/hd/spiderman-in-the-corner-hr6k8abdba0fbnv6.jpg') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      padding: 50px;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3rem;
+      text-shadow: 2px 2px 8px #000;
+    }
+
+    .cake {
+      margin: 40px auto;
+      width: 220px;
+      height: 280px;
+      background: url('https://t4.ftcdn.net/jpg/03/05/75/97/360_F_305759738_WkjSDdZlnr8aZjAW5uIKHoM5cOsu4YNR.jpg') no-repeat center center/contain;
+      position: relative;
+    }
+
+    .candle {
+      width: 12px;
+      height: 40px;
+      background: orange;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .flame {
+      width: 15px;
+      height: 15px;
+      background: yellow;
+      border-radius: 50%;
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: flicker 1s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .btn {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      padding: 18px 40px;
+      font-size: 1.3rem;
+      background: #ffffffee;
+      color: #0077ff;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #d0eaff;
+      transform: scale(1.05);
+    }
+
+    #surpriseMessage {
+      display: none;
+      margin-top: 30px;
+      font-size: 1.5rem;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.4);
+    }
+
+    #wishMessage {
+      display: none;
+      margin-top: 20px;
+      font-size: 1.8rem;
+      color: #ffd700;
+      font-weight: bold;
+      animation: fadeIn 1s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .puff {
+      animation: puffOut 1s ease-out forwards;
+    }
+
+    @keyframes puffOut {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(2); }
+    }
+
+    .card {
+      display: none;
+      margin: 30px auto;
+      padding: 20px;
+      max-width: 400px;
+      background: #fff8dc;
+      color: #222;
+      font-size: 1.2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      animation: fadeIn 1.5s ease-in forwards;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      transform: rotate(45deg);
+      animation: floatUp 5s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .heart:before,
+    .heart:after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      border-radius: 50%;
+    }
+
+    .heart:before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart:after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-800px) rotate(45deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎉 Happy 20th Birthday Arun!</h1>
+  <h2>💙 Make a Wish & Blow the Candle 🎈</h2>
+
+  <div class="cake">
+    <div class="candle" id="candle">
+      <div class="flame" id="flame"></div>
+    </div>
+  </div>
+
+  <button class="btn" onclick="blowCandle()">Blow Candle 🎈</button>
+
+  <div id="surpriseMessage">
+    <p>🌟 You are the light in my life — keep glowing. Let's grow together! 💜</p>
+  </div>
+
+  <div id="wishMessage">🌠 May your wish comes true! 💖</div>
+
+  <div class="card" id="birthdayCard">
+    🎈 Dearest Arun,<br><br>
+    Wishing you laughter, joy, and endless memories. Today is just the beginning of another fantastic year. Happy 20th! 💌
+  </div>
+
+  <!-- Background mellow music -->
+  <audio id="bgmusic" autoplay loop>
+    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chad_Crouch/Motion/Chad_Crouch_-_Springish.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Birthday song -->
+  <audio id="bdaySong" src="https://www2.cs.uic.edu/~i101/SoundFiles/HappyBirthday.mp3"></audio>
+
+  <script>
+    function createHearts() {
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.top = window.innerHeight + 'px';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }, 300);
+    }
+
+    function createFireworks() {
+      const interval = setInterval(() => {
+        confetti({
+          particleCount: 100,
+          spread: 360,
+          origin: { x: Math.random(), y: Math.random() * 0.6 },
+          colors: ['#ff0', '#0ff', '#f0f', '#0f0', '#f00', '#00f']
+        });
+      }, 500);
+      setTimeout(() => clearInterval(interval), 5000);
+    }
+
+    function blowCandle() {
+      const flame = document.getElementById("flame");
+      const music = document.getElementById("bgmusic");
+      const message = document.getElementById("surpriseMessage");
+      const wish = document.getElementById("wishMessage");
+      const card = document.getElementById("birthdayCard");
+      const bdaySong = document.getElementById("bdaySong");
+
+      if (flame) {
+        flame.classList.add("puff");
+        setTimeout(() => flame.style.display = "none", 1000);
+      }
+
+      if (music) music.pause();
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 300,
+          spread: 180,
+          origin: { y: 0.6 }
+        });
+
+        message.style.display = "block";
+        wish.style.display = "block";
+        card.style.display = "block";
+
+        bdaySong.volume = 1;
+        bdaySong.play();
+
+        createFireworks();
+        message.scrollIntoView({ behavior: "smooth" });
+      }, 800);
+    }
+
+    window.onload = createHearts;
+  </script>
+
+</body>
+</html>
+

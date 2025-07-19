@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Arun 🎉</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      text-align: center;
+      background: linear-gradient(to right, #6dd5fa, #2980b9);
+      color: white;
+      padding: 50px;
+    }
+    .btn {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      background: #ffffff;
+      color: #2980b9;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .btn:hover {
+      background: #d0e8f2;
+    }
+    #surprise-text {
+      margin-top: 30px;
+      font-size: 1.5em;
+      display: none;
+      color: #fffdd0;
+     }
+  </style>
+</head>
+<body>
+
+  <h1>Happy Birthday, Arun! 💙</h1>
+
+  <button class="btn" onclick="showSurprise()">Tap for a Surprise!</button>
+
+  <div id="surprise-text">
+    🎉 To my another half: You make life magical! 💖 I LOVE YOU! 😘<br><br>
+    <button class="btn" onclick="window.location.href='cake.html'">Next Surprise 🎂</button>
+  </div>
+
+  <script>
+    function showSurprise() {
+      document.getElementById("surprise-text").style.display = "block";
+      confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
+    }
+  </script>
+
+</body>
+</html>
